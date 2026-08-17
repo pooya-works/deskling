@@ -26,7 +26,7 @@ npm run dist:mac
 
 The generated `.dmg` is an unsigned prototype build. On macOS, first-time testers may need to use right-click, then Open.
 
-## v0.2 (~)
+## Future ideas
 
 - React to local Git commits
 - React to build success/failure
