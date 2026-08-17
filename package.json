@@ -1,0 +1,21 @@
+{
+  "name": "deskling",
+  "version": "0.1.0",
+  "description": "A tiny desktop companion for makers.",
+  "private": true,
+  "main": "src/main.cjs",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "desktop",
+    "companion",
+    "maker",
+    "productivity"
+  ],
+  "author": "Pooya Works",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^38.1.0"
+  }
+}

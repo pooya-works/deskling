@@ -1,0 +1,377 @@
+:root {
+  color-scheme: dark;
+  --bg: rgba(19, 22, 21, 0.88);
+  --panel: rgba(31, 36, 33, 0.88);
+  --line: rgba(226, 232, 223, 0.16);
+  --text: #f3efe7;
+  --muted: #aeb4ab;
+  --jade: #8cc9a5;
+  --jade-deep: #3d7158;
+  --gold: #dfc174;
+  --rose: #f19a8e;
+  --sleep: #8ba4d9;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: transparent;
+}
+
+button {
+  border: 0;
+  color: inherit;
+  font: inherit;
+}
+
+.app-shell {
+  width: calc(100vw - 20px);
+  height: calc(100vh - 20px);
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 26% 8%, rgba(140, 201, 165, 0.24), transparent 42%),
+    linear-gradient(145deg, rgba(19, 22, 21, 0.94), rgba(14, 16, 16, 0.92));
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(20px);
+}
+
+.window-bar {
+  -webkit-app-region: drag;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 14px 4px 18px;
+  font-size: 0.78rem;
+}
+
+.brand,
+.window-actions,
+.stats-panel,
+.action-row {
+  display: flex;
+  align-items: center;
+}
+
+.brand {
+  gap: 8px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--jade);
+  box-shadow: 0 0 14px var(--jade);
+}
+
+.status-dot[data-mode="idle"] {
+  background: var(--gold);
+  box-shadow: 0 0 14px var(--gold);
+}
+
+.status-dot[data-mode="sleepy"] {
+  background: var(--sleep);
+  box-shadow: 0 0 14px var(--sleep);
+}
+
+.status-dot[data-mode="celebrate"] {
+  background: var(--rose);
+  box-shadow: 0 0 14px var(--rose);
+}
+
+.window-actions {
+  -webkit-app-region: no-drag;
+  gap: 6px;
+}
+
+.window-actions button {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.window-actions button:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--text);
+}
+
+.companion-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 24px;
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--jade);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.deskling {
+  position: relative;
+  width: 128px;
+  height: 150px;
+  margin: 2px auto 18px;
+  animation: float 2.8s ease-in-out infinite;
+}
+
+.antenna {
+  position: absolute;
+  top: 0;
+  left: 61px;
+  width: 6px;
+  height: 26px;
+  border-radius: 999px;
+  background: linear-gradient(var(--jade), var(--jade-deep));
+}
+
+.antenna::after {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: -5px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--jade);
+  box-shadow: 0 0 22px rgba(140, 201, 165, 0.55);
+}
+
+.head {
+  position: absolute;
+  top: 24px;
+  left: 18px;
+  width: 92px;
+  height: 82px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 45% 55% 42% 58%;
+  background:
+    radial-gradient(circle at 32% 24%, rgba(255, 255, 255, 0.34), transparent 22%),
+    linear-gradient(145deg, #9bd6b3, #427c61);
+}
+
+.body {
+  position: absolute;
+  top: 92px;
+  left: 33px;
+  width: 64px;
+  height: 50px;
+  border-radius: 44% 56% 50% 50%;
+  background: linear-gradient(160deg, #d8ead8, #84b997);
+}
+
+.eye {
+  position: absolute;
+  top: 34px;
+  width: 10px;
+  height: 15px;
+  border-radius: 999px;
+  background: #111615;
+}
+
+.eye-left {
+  left: 27px;
+}
+
+.eye-right {
+  right: 27px;
+}
+
+.mouth {
+  position: absolute;
+  left: 39px;
+  bottom: 21px;
+  width: 16px;
+  height: 8px;
+  border-bottom: 3px solid #111615;
+  border-radius: 0 0 999px 999px;
+}
+
+.heart {
+  position: absolute;
+  top: 15px;
+  left: 26px;
+  width: 12px;
+  height: 12px;
+  transform: rotate(45deg);
+  background: var(--rose);
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--rose);
+}
+
+.heart::before {
+  left: -6px;
+}
+
+.heart::after {
+  top: -6px;
+}
+
+.shadow {
+  position: absolute;
+  left: 24px;
+  bottom: -1px;
+  width: 82px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.22);
+  filter: blur(3px);
+}
+
+.deskling[data-mode="idle"] {
+  animation-duration: 4s;
+}
+
+.deskling[data-mode="sleepy"] {
+  animation: sleepy 4.8s ease-in-out infinite;
+}
+
+.deskling[data-mode="sleepy"] .eye {
+  height: 3px;
+  top: 40px;
+}
+
+.deskling[data-mode="celebrate"] {
+  animation: celebrate 0.52s ease-in-out infinite;
+}
+
+.deskling[data-mode="celebrate"] .mouth {
+  height: 12px;
+  border-bottom-width: 4px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.55rem;
+  line-height: 1.1;
+}
+
+p {
+  margin: 0;
+}
+
+#stateCopy {
+  max-width: 230px;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.stats-panel {
+  justify-content: space-between;
+  margin: 0 18px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.stats-panel > div {
+  display: grid;
+  gap: 2px;
+}
+
+.stat-value {
+  font-size: 1.4rem;
+  font-weight: 750;
+}
+
+.stat-label {
+  color: var(--muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.action-row {
+  gap: 10px;
+  padding: 14px 18px 18px;
+}
+
+.ship-button,
+.quiet-button {
+  height: 42px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.ship-button {
+  flex: 1;
+  background: var(--jade);
+  color: #102017;
+  font-weight: 800;
+}
+
+.quiet-button {
+  width: 72px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--muted);
+}
+
+.ship-button:hover,
+.quiet-button:hover {
+  transform: translateY(-1px);
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes sleepy {
+  0%,
+  100% {
+    transform: translateY(4px) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(8px) rotate(1deg);
+  }
+}
+
+@keyframes celebrate {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-4deg) scale(1);
+  }
+  50% {
+    transform: translateY(-13px) rotate(4deg) scale(1.04);
+  }
+}
