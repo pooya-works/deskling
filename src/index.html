@@ -22,6 +22,11 @@
       <section class="companion-panel">
         <p class="eyebrow" id="modeLabel">active</p>
         <div class="deskling" id="deskling" aria-hidden="true">
+          <div class="egg">
+            <span class="crack crack-one"></span>
+            <span class="crack crack-two"></span>
+            <span class="sprout"></span>
+          </div>
           <div class="antenna"></div>
           <div class="head">
             <span class="eye eye-left"></span>
@@ -35,6 +40,15 @@
         </div>
         <h1 id="stateTitle">I am awake.</h1>
         <p id="stateCopy">Keep building. I will hang out here while you make things.</p>
+        <div class="growth-panel" aria-label="Growth progress">
+          <div class="growth-copy">
+            <span id="stageLabel">egg</span>
+            <strong><span id="growthPoints">0</span> growth</strong>
+          </div>
+          <div class="growth-track">
+            <span id="growthBar"></span>
+          </div>
+        </div>
       </section>
 
       <section class="stats-panel" aria-label="Session stats">
@@ -46,10 +60,19 @@
           <span class="stat-value" id="shipCount">0</span>
           <span class="stat-label">ships</span>
         </div>
+        <div>
+          <span class="stat-value" id="grassCount">0</span>
+          <span class="stat-label">grass</span>
+        </div>
+      </section>
+
+      <section class="garden-panel" aria-label="Tiny garden">
+        <div class="garden-bed" id="gardenBed"></div>
       </section>
 
       <footer class="action-row">
         <button class="ship-button" id="shipButton" type="button">I shipped something</button>
+        <button class="grass-button" id="grassButton" type="button">Plant grass</button>
         <button class="quiet-button" id="resetButton" type="button">Reset</button>
       </footer>
     </main>
