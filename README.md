@@ -18,9 +18,18 @@ npm install
 npm start
 ```
 
+## Build macOS prototype
+
+```sh
+npm run dist:mac
+```
+
+The generated `.dmg` is an unsigned prototype build. On macOS, first-time testers may need to use right-click, then Open.
+
 ## v0.2 (~)
 
 - React to local Git commits
 - React to build success/failure
 - Add menu bar controls
-- Package installers for macOS and Windows
+- Signed macOS releases
+- Windows package

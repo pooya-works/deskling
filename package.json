@@ -5,7 +5,9 @@
   "private": true,
   "main": "src/main.cjs",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist:mac": "electron-builder --mac dmg zip"
   },
   "keywords": [
     "desktop",
@@ -15,7 +17,28 @@
   ],
   "author": "Pooya Works",
   "license": "MIT",
+  "build": {
+    "appId": "works.pooya.deskling",
+    "productName": "Deskling",
+    "artifactName": "${productName}-${version}-${arch}.${ext}",
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "identity": null,
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "dmg": {
+      "title": "Deskling ${version}"
+    }
+  },
   "devDependencies": {
-    "electron": "^38.1.0"
+    "electron": "^38.1.0",
+    "electron-builder": "^26.15.3"
   }
 }
