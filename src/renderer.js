@@ -16,8 +16,8 @@ const resetButton = document.querySelector("#resetButton");
 const minimizeButton = document.querySelector("#minimizeButton");
 const closeButton = document.querySelector("#closeButton");
 
-const IDLE_AFTER_MS = 20_000;
-const SLEEP_AFTER_MS = 60_000;
+const IDLE_AFTER_SECONDS = 120;
+const SLEEP_AFTER_SECONDS = 600;
 const CELEBRATE_MS = 5_000;
 const ACTIVE_GROWTH_EVERY_MS = 60_000;
 const MAX_GRASS = 24;
@@ -50,9 +50,10 @@ const messages = {
 };
 
 let lastActivity = Date.now();
+let systemIdleSeconds = 0;
 let mode = "active";
 let celebrationUntil = 0;
-let sessionStartedAt = Date.now();
+let activeSeconds = Number(localStorage.getItem("deskling:activeSeconds") || 0);
 let ships = Number(localStorage.getItem("deskling:ships") || 0);
 let grass = Number(localStorage.getItem("deskling:grass") || 0);
 let growth = Number(localStorage.getItem("deskling:growth") || 0);
@@ -80,6 +81,7 @@ function persistGrowth() {
   localStorage.setItem("deskling:growth", String(growth));
   localStorage.setItem("deskling:grass", String(grass));
   localStorage.setItem("deskling:ships", String(ships));
+  localStorage.setItem("deskling:activeSeconds", String(activeSeconds));
 }
 
 function renderGarden() {
@@ -144,39 +146,52 @@ function resetStats() {
   ships = 0;
   grass = 0;
   growth = 0;
-  sessionStartedAt = Date.now();
+  activeSeconds = 0;
   persistGrowth();
   renderGrowth();
   activeMinutes.textContent = "0";
   recordActivity();
 }
 
-function tick() {
+async function refreshSystemIdle() {
+  try {
+    systemIdleSeconds = await window.desklingWindow.getIdleSeconds();
+  } catch {
+    systemIdleSeconds = Math.floor((Date.now() - lastActivity) / 1000);
+  }
+}
+
+async function tick() {
   const now = Date.now();
-  const inactiveFor = now - lastActivity;
-  const minutes = Math.floor((now - sessionStartedAt) / 60_000);
+  await refreshSystemIdle();
+  const isSystemActive = systemIdleSeconds < IDLE_AFTER_SECONDS;
 
-  activeMinutes.textContent = String(minutes);
+  if (isSystemActive) {
+    activeSeconds += 1;
+    persistGrowth();
+  }
 
-  if (inactiveFor < IDLE_AFTER_MS && now - lastGrowthAt >= ACTIVE_GROWTH_EVERY_MS) {
+  activeMinutes.textContent = String(Math.floor(activeSeconds / 60));
+
+  if (isSystemActive && now - lastGrowthAt >= ACTIVE_GROWTH_EVERY_MS) {
     lastGrowthAt = now;
     addGrowth(1);
   }
 
   if (now < celebrationUntil) {
-    requestAnimationFrame(tick);
+    setTimeout(tick, 1000);
     return;
   }
 
-  if (inactiveFor >= SLEEP_AFTER_MS) {
+  if (systemIdleSeconds >= SLEEP_AFTER_SECONDS) {
     setMode("sleepy");
-  } else if (inactiveFor >= IDLE_AFTER_MS) {
+  } else if (systemIdleSeconds >= IDLE_AFTER_SECONDS) {
     setMode("idle");
   } else {
     setMode("active");
   }
 
-  requestAnimationFrame(tick);
+  setTimeout(tick, 1000);
 }
 
 ["pointermove", "pointerdown", "keydown", "wheel"].forEach((eventName) => {

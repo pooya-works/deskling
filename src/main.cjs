@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, powerMonitor } = require("electron");
 const path = require("node:path");
 
 let mainWindow;
@@ -6,7 +6,7 @@ let mainWindow;
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 340,
-    height: 540,
+    height: 580,
     minWidth: 280,
     minHeight: 500,
     frame: false,
@@ -45,4 +45,8 @@ ipcMain.handle("window:minimize", () => {
 
 ipcMain.handle("window:close", () => {
   mainWindow?.close();
+});
+
+ipcMain.handle("system:get-idle-seconds", () => {
+  return powerMonitor.getSystemIdleTime();
 });

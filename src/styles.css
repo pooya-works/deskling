@@ -40,7 +40,7 @@ button {
   display: flex;
   flex-direction: column;
   border: 1px solid var(--line);
-  border-radius: 22px;
+  border-radius: 26px;
   color: var(--text);
   background:
     radial-gradient(circle at 26% 8%, rgba(140, 201, 165, 0.24), transparent 42%),
@@ -53,8 +53,9 @@ button {
   -webkit-app-region: drag;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 14px 14px 4px 18px;
+  justify-content: flex-start;
+  gap: 14px;
+  padding: 16px 18px 4px;
   font-size: 0.78rem;
 }
 
@@ -97,21 +98,27 @@ button {
 
 .window-actions {
   -webkit-app-region: no-drag;
-  gap: 6px;
+  order: 0;
+  gap: 8px;
 }
 
 .window-actions button {
-  width: 26px;
-  height: 26px;
+  width: 13px;
+  height: 13px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--muted);
   cursor: pointer;
 }
 
+.traffic-close {
+  background: #ff5f57;
+}
+
+.traffic-minimize {
+  background: #ffbd2e;
+}
+
 .window-actions button:hover {
-  background: rgba(255, 255, 255, 0.14);
-  color: var(--text);
+  filter: brightness(1.08);
 }
 
 .companion-panel {
@@ -120,7 +127,7 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 16px 24px;
+  padding: 10px 24px 16px;
   text-align: center;
 }
 
@@ -439,7 +446,7 @@ p {
 .stats-panel {
   justify-content: space-between;
   margin: 0 18px;
-  padding: 14px 16px;
+  padding: 12px 14px;
   border: 1px solid var(--line);
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.055);
@@ -492,6 +499,8 @@ p {
 }
 
 .action-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
   padding: 14px 18px 18px;
 }
@@ -500,28 +509,41 @@ p {
 .grass-button,
 .quiet-button {
   height: 42px;
-  border-radius: 999px;
+  border-radius: 16px;
   cursor: pointer;
 }
 
 .ship-button {
-  flex: 1.2;
   background: var(--jade);
   color: #102017;
   font-weight: 800;
 }
 
 .grass-button {
-  flex: 0.9;
   background: rgba(223, 193, 116, 0.14);
   color: var(--gold);
   font-weight: 760;
 }
 
 .quiet-button {
-  width: 56px;
+  grid-column: 1 / -1;
+  width: 100%;
+  height: 34px;
   background: rgba(255, 255, 255, 0.08);
   color: var(--muted);
+}
+
+.ship-button,
+.grass-button {
+  display: grid;
+  place-items: center;
+  gap: 1px;
+}
+
+.ship-button strong,
+.grass-button strong {
+  font-size: 0.68rem;
+  opacity: 0.78;
 }
 
 .ship-button:hover,
